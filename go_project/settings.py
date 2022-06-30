@@ -75,13 +75,24 @@ WSGI_APPLICATION = 'go_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'go',
+#         'USER':'postgres',
+#         'PASSWORD':'987789',  
+#         'HOST':'localhost',
+#         'PORT':'5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'go',
-        'USER':'postgres',
-        'PASSWORD':'987789',  
-        'HOST':'localhost',
+        'NAME': 'd6au3dvru36569',
+        'USER':'iuhzacwbhuplue',
+        'PASSWORD':'bbec683a43f2b898edabcdba87a40bb384954d4b87ad4aff0d5fae2e84af2076',  
+        'HOST':'ec2-44-206-11-200.compute-1.amazonaws.com',
         'PORT':'5432',
     }
 }
