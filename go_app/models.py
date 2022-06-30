@@ -8,3 +8,6 @@ class SignUp(models.Model):
     # created_date = models.DateField(auto_now_add=True)
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
+
+    class Meta():
+        db_table = 'SignUp'
