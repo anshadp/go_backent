@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SignUp, BusDetails
+from .models import SignUp, BusDetails, Schedule
 
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:

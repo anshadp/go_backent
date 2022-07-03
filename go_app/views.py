@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .serializers import SignUpSerializer, BusDetailsSerializer
+from .serializers import SignUpSerializer, BusDetailsSerializer, ScheduleSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
