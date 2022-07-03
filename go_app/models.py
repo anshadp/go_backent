@@ -13,7 +13,7 @@ class SignUp(models.Model):
 
 class BusDetails(models.Model):
     bus_name = models.CharField(max_length=100)
-    bus_no = models.IntegerField()
+    bus_no = models.CharField(max_length=100)
     contact = models.BigIntegerField()
     private = models.BooleanField()
 
