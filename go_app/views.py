@@ -14,18 +14,29 @@ from rest_framework import status
 @csrf_exempt
 def serveSignUp(request):
 
+    userData = JSONParser().parse(request)
 
-    if request.method=='POST':
+    userSerializer = SignUpSerializer(data = userData)
 
-        userData = JSONParser().parse(request)
+    if userSerializer.is_valid():
+        userSerializer.save()
+        return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
+    else:
+        return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-        user_serializer = SignUpSerializer(data = userData)
+@csrf_exempt
+def serveBus(request):
 
-        if user_serializer.is_valid():
-            user_serializer.save()
-            return JsonResponse({"status": "success", "data": user_serializer.data}, status=status.HTTP_200_OK)
-        else:
-            return JsonResponse({"status": "error", "data": user_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    busData = JSONParser().parse(request)
+
+    busSerializer = BusDetailsSerializer(data = busData)
+
+    if busSerializer.is_valid():
+        busSerializer.save()
+        return JsonResponse({"status": "success", "data": busSerializer.data}, status=status.HTTP_200_OK)
+    else:
+        return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

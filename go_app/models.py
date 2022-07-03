@@ -12,8 +12,8 @@ class SignUp(models.Model):
 
 
 class BusDetails(models.Model):
-    busName = models.CharField(max_length=100)
-    busNo = models.IntegerField()
+    bus_name = models.CharField(max_length=100)
+    bus_no = models.IntegerField()
     route = models.CharField(max_length=100)
 
     class Meta():
@@ -21,15 +21,15 @@ class BusDetails(models.Model):
 
 
 class Timing(models.Model):
-    takingPlace = models.CharField(max_length=100)
-    reachingPlace = models.CharField(max_length=100)
-    takingTime = models.TimeField()
-    reachingTime = models.TimeField()
-    timeTaken = models.CharField(max_length=100)
-    busId = models.ForeignKey(BusDetails, on_delete=models.CASCADE)
+    taking_place = models.CharField(max_length=100)
+    reaching_place = models.CharField(max_length=100)
+    taking_time = models.TimeField()
+    reaching_time = models.TimeField()
+    time_taken = models.CharField(max_length=100)
+    bus_id = models.ForeignKey(BusDetails, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = (('takingTime', 'busId'))
+        unique_together = (('taking_time', 'bus_id'))
         db_table = 'bus_times'
 
     
