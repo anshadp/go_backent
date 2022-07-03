@@ -12,7 +12,7 @@ from rest_framework import status
 
 # Create your views here.
 @csrf_exempt
-def serveSignUp(request):
+def signUp(request):
     if request.method == 'POST': 
 
         userData = JSONParser().parse(request)
@@ -25,7 +25,7 @@ def serveSignUp(request):
             return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-def serveBus(request):
+def addBus(request):
     if request.method == 'POST': 
 
         busData = JSONParser().parse(request)
@@ -38,6 +38,19 @@ def serveBus(request):
         else:
             return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
+
+def addSchedule(request):
+    if request.method == 'POST': 
+
+        busData = JSONParser().parse(request)
+
+        scheduleSerializer = ScheduleSerializer(data = busData)
+
+        if scheduleSerializer.is_valid():
+            scheduleSerializer.save()
+            return JsonResponse({"status": "success", "data": scheduleSerializer.data}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({"status": "error", "data": scheduleSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
