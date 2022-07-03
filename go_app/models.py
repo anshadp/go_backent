@@ -21,7 +21,7 @@ class BusDetails(models.Model):
         db_table = 'bus_details'
 
 
-class Timing(models.Model):
+class Schedule(models.Model):
     taking_place = models.CharField(max_length=100)
     reaching_place = models.CharField(max_length=100)
     taking_time = models.TimeField()
@@ -31,7 +31,7 @@ class Timing(models.Model):
 
     class Meta:
         unique_together = (('taking_time', 'bus_id'))
-        db_table = 'bus_times'
+        db_table = 'bus_schedule'
 
     
  
