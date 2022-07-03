@@ -14,7 +14,8 @@ class SignUp(models.Model):
 class BusDetails(models.Model):
     bus_name = models.CharField(max_length=100)
     bus_no = models.IntegerField()
-    route = models.CharField(max_length=100)
+    contact = models.BigIntegerField()
+    private = models.BooleanField()
 
     class Meta():
         db_table = 'bus_details'
