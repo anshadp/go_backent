@@ -12,7 +12,7 @@ from rest_framework import status
 
 # Create your views here.
 @csrf_exempt
-def serveLogin(request):
+def serveSignUp(request):
 
 
     if request.method=='POST':
