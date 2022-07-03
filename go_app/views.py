@@ -38,7 +38,7 @@ def addBus(request):
         else:
             return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_exempt
 def addSchedule(request):
     if request.method == 'POST': 
 
