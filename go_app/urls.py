@@ -1,10 +1,10 @@
 from django.urls import path, include
-from . import views
+from .views import BusDataView
 
 urlpatterns = [
-    path('first', views.signUp, name='first'),
-    path('add_bus', views.addBus, name='add_bus'),
-    path('add_schedule', views.addSchedule, name='add_schedule')
+    # path('first', views.signUp, name='first'),
+    path('add_bus', BusDataView.as_view()),
+    # path('add_schedule', views.addSchedule, name='add_schedule')
 
     
 

@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from rest_framework import status
+from django.views import View
+from django.utils.decorators import method_decorator
 
 
 
@@ -12,6 +14,7 @@ from rest_framework import status
 
 # Create your views here.
 @csrf_exempt
+
 def signUp(request):
     if request.method == 'POST': 
 
@@ -24,10 +27,11 @@ def signUp(request):
         else:
             return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-def addBus(request):
-    if request.method == 'POST': 
 
+@method_decorator(csrf_exempt, name='dispatch')
+class BusDataView(View):
+
+    def post(self, request):
         busData = JSONParser().parse(request)
 
         busSerializer = BusDetailsSerializer(data = busData)
@@ -37,10 +41,16 @@ def addBus(request):
             return JsonResponse({"status": "success", "data": busSerializer.data}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request):
+        return JsonResponse({"status": "success"}, status=status.HTTP_200_OK)
+
+
+
 
 @csrf_exempt
 def addSchedule(request):
-    if request.method == 'POST': 
+    if request.method == 'POST':
 
         busData = JSONParser().parse(request)
 
@@ -55,3 +65,17 @@ def addSchedule(request):
 
 
 
+
+
+# def addBus(request):
+#         if request.method == 'POST': 
+
+#             busData = JSONParser().parse(request)
+
+#             busSerializer = BusDetailsSerializer(data = busData)
+
+#             if busSerializer.is_valid():
+#                 busSerializer.save()
+#                 return JsonResponse({"status": "success", "data": busSerializer.data}, status=status.HTTP_200_OK)
+#             else:
+#                 return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
