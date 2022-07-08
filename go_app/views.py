@@ -43,7 +43,9 @@ class BusDataView(View):
             return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request):
-        return JsonResponse({"status": "success"}, status=status.HTTP_200_OK)
+        User = BusDetails.objects.all()
+        busSerializer = BusDetailsSerializer(User,many='True')
+        return JsonResponse(busSerializer.data,safe=False)
 
 
 
