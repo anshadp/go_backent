@@ -7,6 +7,7 @@ from django.http.response import JsonResponse
 from rest_framework import status
 from django.views import View
 from django.utils.decorators import method_decorator
+from . models import BusDetails
 
 
 
