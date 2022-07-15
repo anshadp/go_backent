@@ -54,15 +54,15 @@ class BusDataView(View):
 class ScheduleDataView():
 
     def post(self, request):
-            busData = JSONParser().parse(request)
+        busData = JSONParser().parse(request)
 
-            scheduleSerializer = ScheduleSerializer(data = busData)
+        scheduleSerializer = ScheduleSerializer(data = busData)
 
-            if scheduleSerializer.is_valid():
-                scheduleSerializer.save()
-                return JsonResponse({"status": "success", "data": scheduleSerializer.data}, status=status.HTTP_200_OK)
-            else:
-                return JsonResponse({"status": "error", "data": scheduleSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        if scheduleSerializer.is_valid():
+            scheduleSerializer.save()
+            return JsonResponse({"status": "success", "data": scheduleSerializer.data}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({"status": "error", "data": scheduleSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
