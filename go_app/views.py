@@ -51,7 +51,7 @@ class BusDataView(View):
 
 
 @method_decorator(csrf_exempt, name='schedule')
-class ScheduleDataView():
+class ScheduleDataView(View):
 
     def post(self, request):
         busData = JSONParser().parse(request)
