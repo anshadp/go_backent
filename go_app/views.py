@@ -29,7 +29,7 @@ def signUp(request):
             return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name='schedule')
 class BusDataView(View):
 
     def post(self, request):
