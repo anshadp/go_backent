@@ -50,7 +50,7 @@ class BusDataView(View):
 
 
 
-@method_decorator(csrf_exempt, name='schedule')
+@method_decorator(csrf_exempt, name='dispatch')
 class ScheduleDataView(View):
 
     def post(self, request):
