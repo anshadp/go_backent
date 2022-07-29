@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import BusDataView, ScheduleDataView
+from .views import BusDataView, ScheduleDataView, SignUpView
 
 
 urlpatterns = [
