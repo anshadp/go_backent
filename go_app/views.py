@@ -17,16 +17,16 @@ from . models import BusDetails
 @method_decorator(csrf_exempt, name='dispatch')
 class SignUpView(View):
 
-    def signUp(request):
-        def post(self, request):
-            userData = JSONParser().parse(request)
-            userSerializer = SignUpSerializer(data = userData)
+    
+    def post(self, request):
+        userData = JSONParser().parse(request)
+        userSerializer = SignUpSerializer(data = userData)
 
-            if userSerializer.is_valid():
-                userSerializer.save()
-                return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
-            else:
-                return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        if userSerializer.is_valid():
+            userSerializer.save()
+            return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
