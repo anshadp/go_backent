@@ -1,12 +1,10 @@
 from django.urls import path, include
-from .views import BusDataView, ScheduleDataView, SignUpView
+from . import views 
 
 
 urlpatterns = [
-    path('user_signup', SignUpView.as_view()),
-    path('add_bus', BusDataView.as_view()),
-    path('add_schedule', ScheduleDataView.as_view(), name='add_schedule')
-
-    
-
+    path('user_signup', views.signUp),
+    path('login', views.login),
+    path('add_bus', views.serveBusDetails),
+    path('add_schedule', views.serveSchedule, name='add_schedule')
 ]
