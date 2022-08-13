@@ -28,18 +28,21 @@ def login(request):
     if request.method == 'POST':
         loginCred = JSONParser().parse(request)
 
-        userDetails = SignUp.objects.get(email=loginCred['email'])
+        try:
+            userDetails = SignUp.objects.get(email=loginCred['email'])
 
-        if userDetails.email == loginCred['email'] and userDetails.password == loginCred['password']:
+            if userDetails.email == loginCred['email'] and userDetails.password == loginCred['password']:
 
-            tokenObj = {
-                'userId': userDetails.id
-            }
+                tokenObj = {
+                    'userId': userDetails.id
+                }
 
-            token = jwt.encode(payload=tokenObj, key=settings.SECRET_KEY, algorithm="HS256")
+                token = jwt.encode(payload=tokenObj, key=settings.SECRET_KEY, algorithm="HS256")
 
-            return JsonResponse({"status": "success", "token": token}, status=status.HTTP_200_OK)
-        else:
+                return JsonResponse({"status": "success", "token": token}, status=status.HTTP_200_OK)
+            else:
+                return JsonResponse({"status": "error", "data": 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
+        except:
             return JsonResponse({"status": "error", "data": 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
 
 
