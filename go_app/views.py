@@ -1,4 +1,4 @@
-from .serializers import SignUpSerializer, BusDetailsSerializer, ScheduleSerializer
+from .serializers import SignUpSerializer, AccountSerializer, BusDetailsSerializer, ScheduleSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
@@ -13,13 +13,40 @@ from django.conf import settings
 def signUp(request):
     if request.method == 'POST':
         userData = JSONParser().parse(request)
-        userSerializer = SignUpSerializer(data = userData)
 
+        signUpData = {  
+                'username': userData['username'],
+                'phone_no': userData['phone_no'],
+                'status': userData['status'],
+            }
+
+        userSerializer = SignUpSerializer(data = signUpData)
         if userSerializer.is_valid():
-            userSerializer.save()
-            return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
+            userId = SignUp.objects.get(id=userSerializer.data['id'])
+            accountData = {  
+                'email': userData['email'],
+                'Password': userData['password'],
+                'userType': userData['userType'],
+                'user': userId.id
+            } 
+
+        accountSerializer = AccountSerializer(data = accountData)
+        print(accountSerializer.is_valid())
+        if accountSerializer.is_valid():
+            accountSerializer.save()
+            print(accountSerializer.data)
         else:
-            return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            print(accountSerializer.errors)
+
+    return JsonResponse({"status": "success"})
+
+        # userSerializer = SignUpSerializer(data = userData)
+
+        # if userSerializer.is_valid():
+        #     userSerializer.save()
+        #     return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
+        # else:
+        #     return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt

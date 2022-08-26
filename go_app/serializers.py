@@ -1,10 +1,24 @@
 from rest_framework import serializers
-from .models import SignUp, BusDetails, Schedule
+from .models import SignUp, Account, BusDetails, Schedule
 
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignUp
-        fields = ('id','email', 'phone_no', 'username', 'password')
+        fields = ('id',  'username', 'phone_no', 'status')
+
+
+class AccountSerializer(serializers.ModelSerializer):
+
+    
+#     user = serializers.SlugRelatedField(
+#     many=True, 
+#     read_only=True,
+#     slug_field="name"
+#   )
+
+    class Meta:
+        model = Account
+        fields = ('id',  'email', 'Password', 'user_type', 'user')
 
 
 class BusDetailsSerializer(serializers.ModelSerializer):

@@ -2,13 +2,25 @@ from django.db import models
 
 # Create your models here.
 class SignUp(models.Model):
-    email = models.CharField(max_length=100)
-    phone_no = models.BigIntegerField()
     username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
+    phone_no = models.BigIntegerField()
+    status = models.BooleanField(default=True)  
+    created_date = models.DateField(auto_now_add=True)
+
 
     class Meta():
-        db_table = 'SignUp'
+        db_table = 'signup'
+
+
+class Account(models.Model):
+    email = models.CharField(max_length=100)
+    Password = models.CharField(max_length=100)
+    user_type = models.CharField(max_length=100,default="Admin")
+    user = models.ForeignKey(SignUp, on_delete=models.CASCADE)
+
+    class Meta():
+        db_table = 'account_details'
+
 
 
 class BusDetails(models.Model):
