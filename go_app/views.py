@@ -34,11 +34,15 @@ def signUp(request):
         print(accountSerializer.is_valid())
         if accountSerializer.is_valid():
             accountSerializer.save()
-            print(accountSerializer.data)
+            # print(accountSerializer.data)
         else:
-            print(accountSerializer.errors)
+            return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            # print(accountSerializer.errors)
 
-    return JsonResponse({"status": "success"})
+        return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
+    else:
+        return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 
         # userSerializer = SignUpSerializer(data = userData)
 
