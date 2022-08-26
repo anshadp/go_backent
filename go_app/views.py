@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from rest_framework import status
-from . models import BusDetails, SignUp
+from . models import BusDetails, SignUp, Account
 import jwt
 from django.conf import settings
 
@@ -45,36 +45,28 @@ def signUp(request):
         return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
-        # userSerializer = SignUpSerializer(data = userData)
-
-        # if userSerializer.is_valid():
-        #     userSerializer.save()
-        #     return JsonResponse({"status": "success", "data": userSerializer.data}, status=status.HTTP_200_OK)
-        # else:
-        #     return JsonResponse({"status": "error", "data": userSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-
 @csrf_exempt
 def login(request):
     
     if request.method == 'POST':
         loginCred = JSONParser().parse(request)
+        print(loginCred['email'])
 
         try:
-            userDetails = SignUp.objects.get(email=loginCred['email'])
-
-            if userDetails.email == loginCred['email'] and userDetails.password == loginCred['password']:
+            userDetails = Account.objects.get(email=loginCred['email'])
+            print('herre ok')
+            if userDetails.email == loginCred['email'] and userDetails.Password == loginCred['password']:
+                print(userDetails)
 
                 tokenObj = {
                     'userId': userDetails.id
                 }
-
                 token = jwt.encode(payload=tokenObj, key=settings.SECRET_KEY, algorithm="HS256")
-
                 return JsonResponse({"status": "success", "token": token}, status=status.HTTP_200_OK)
             else:
                 return JsonResponse({"status": "error", "data": 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
-        except:
+        except Exception as e:
+            print(e)
             return JsonResponse({"status": "error", "data": 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
 
 
