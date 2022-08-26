@@ -22,6 +22,7 @@ def signUp(request):
 
         userSerializer = SignUpSerializer(data = signUpData)
         if userSerializer.is_valid():
+            userSerializer.save()
             userId = SignUp.objects.get(id=userSerializer.data['id'])
             accountData = {  
                 'email': userData['email'],
