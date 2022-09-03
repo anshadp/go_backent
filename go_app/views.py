@@ -62,7 +62,7 @@ def login(request):
                     'userId': userDetails.id
                 }
                 token = jwt.encode(payload=tokenObj, key=settings.SECRET_KEY, algorithm="HS256")
-                return JsonResponse({"status": "success", "token": token}, status=status.HTTP_200_OK)
+                return JsonResponse({"status": "success", "token": token, "user_type": userDetails.user_type}, status=status.HTTP_200_OK)
             else:
                 return JsonResponse({"status": "error", "data": 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
