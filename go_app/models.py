@@ -15,7 +15,7 @@ class SignUp(models.Model):
 class Account(models.Model):
     email = models.CharField(max_length=100)
     Password = models.CharField(max_length=100)
-    user_type = models.CharField(max_length=100,default="Admin")
+    user_type = models.CharField(max_length=100)
     user = models.ForeignKey(SignUp, on_delete=models.CASCADE)
 
     class Meta():
