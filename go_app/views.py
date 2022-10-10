@@ -88,7 +88,7 @@ def serveBusDetails(request):
         return JsonResponse(busSerializer.data,safe=False)
 
 
-
+@csrf_exempt
 def serveSchedule(request):
 
     if request.method == 'POST':
