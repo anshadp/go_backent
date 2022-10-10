@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from rest_framework import status
-from . models import BusDetails, SignUp, Account
+from . models import BusDetails, SignUp, Account, Schedule
 import jwt
 from django.conf import settings
 
@@ -93,16 +93,18 @@ def serveSchedule(request):
 
     if request.method == 'POST':
         busData = JSONParser().parse(request)
-
         scheduleSerializer = ScheduleSerializer(data = busData)
 
         if scheduleSerializer.is_valid():
+
             scheduleSerializer.save()
-            return JsonResponse({"status": "success", "data": scheduleSerializer.data}, status=status.HTTP_200_OK)
+            return JsonResponse({"status": "Schedule added successfully", "data": scheduleSerializer.data}, status=status.HTTP_200_OK)
         else:
-            return JsonResponse({"status": "error", "data": scheduleSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
+            return JsonResponse({"status": "An error occurred", "data": scheduleSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'GET':
+        schedules = Schedule.objects.all()
+        scheduleSerializer = ScheduleSerializer(schedules,many='True')
+        return JsonResponse(scheduleSerializer.data,safe=False)
 
 

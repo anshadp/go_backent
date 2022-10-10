@@ -21,6 +21,8 @@ class BusDetailsSerializer(serializers.ModelSerializer):
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
+
     class Meta:
+        
         model = Schedule
-        fields = ('id', 'taking_place', 'reaching_place', 'taking_time', 'reaching_time', 'time_taken', 'bus_id')
+        fields = ('id', 'taking_place', 'reaching_place', 'taking_time', 'reaching_time', 'time_taken', 'bus')
