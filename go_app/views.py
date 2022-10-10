@@ -50,11 +50,9 @@ def login(request):
     
     if request.method == 'POST':
         loginCred = JSONParser().parse(request)
-        print(loginCred['email'])
 
         try:
             userDetails = Account.objects.get(email=loginCred['email'])
-            print('herre ok')
             if userDetails.email == loginCred['email'] and userDetails.Password == loginCred['password']:
                 print(userDetails)
 

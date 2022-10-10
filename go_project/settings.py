@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'go_project.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'go',
-#         'USER':'postgres',
+#         'USER':'postgres', 
 #         'PASSWORD':'987789',  
 #         'HOST':'localhost',
 #         'PORT':'5432',

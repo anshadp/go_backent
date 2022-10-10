@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class SignUp(models.Model):
+class SignUp(models.Model): 
     username = models.CharField(max_length=100)
     phone_no = models.BigIntegerField()
     status = models.BooleanField(default=True)  
@@ -27,9 +27,10 @@ class BusDetails(models.Model):
     bus_name = models.CharField(max_length=100)
     bus_no = models.CharField(max_length=100)
     contact = models.BigIntegerField()
-    private = models.BooleanField()
+    user = models.ForeignKey(SignUp, on_delete=models.CASCADE)
 
-    class Meta():
+
+    class Meta(): 
         db_table = 'bus_details'
 
 
@@ -39,7 +40,7 @@ class Schedule(models.Model):
     taking_time = models.TimeField()
     reaching_time = models.TimeField()
     time_taken = models.CharField(max_length=100)
-    bus_id = models.ForeignKey(BusDetails, on_delete=models.CASCADE)
+    bus = models.ForeignKey(BusDetails, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('taking_time', 'bus_id'))

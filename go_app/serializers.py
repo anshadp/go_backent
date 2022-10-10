@@ -9,13 +9,6 @@ class SignUpSerializer(serializers.ModelSerializer):
 
 class AccountSerializer(serializers.ModelSerializer):
 
-    
-#     user = serializers.SlugRelatedField(
-#     many=True, 
-#     read_only=True,
-#     slug_field="name"
-#   )
-
     class Meta:
         model = Account
         fields = ('id',  'email', 'Password', 'user_type', 'user')
@@ -24,7 +17,7 @@ class AccountSerializer(serializers.ModelSerializer):
 class BusDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusDetails
-        fields = ('id', 'bus_name', 'bus_no', 'contact', 'private')
+        fields = ('id', 'bus_name', 'bus_no', 'contact', 'user')
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
