@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from rest_framework import status
 from . models import BusDetails, SignUp, Account, Schedule
 import jwt
+import json
 from django.conf import settings
 
 
@@ -54,13 +55,25 @@ def login(request):
         try:
             userDetails = Account.objects.get(email=loginCred['email'])
 
+            userObj = {
+                'accountId': userDetails.id,
+                'userId': userDetails.user.id,
+                'userType': userDetails.user_type,
+            }
+
+            print(userObj)
+
+            decodedUserObj = json.dumps(userObj)
+
+            print(decodedUserObj)
+
             if userDetails.email == loginCred['email'] and userDetails.Password == loginCred['password']:
                 tokenObj = {
                     'userId': userDetails.id
                 }
                 token = jwt.encode(payload=tokenObj, key=settings.SECRET_KEY, algorithm="HS256")
 
-                return JsonResponse({"status": "success", "token": token, "userDetails": userDetails}, status=status.HTTP_200_OK)
+                return JsonResponse({"status": "success", "token": token, "userDetails": decodedUserObj}, status=status.HTTP_200_OK)
             else:
                 return JsonResponse({"status": "error", "data": 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
