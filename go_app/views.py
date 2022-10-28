@@ -61,11 +61,7 @@ def login(request):
                 'userType': userDetails.user_type,
             }
 
-            print(userObj)
-
             decodedUserObj = json.dumps(userObj)
-
-            print(decodedUserObj)
 
             if userDetails.email == loginCred['email'] and userDetails.Password == loginCred['password']:
                 tokenObj = {
@@ -82,7 +78,7 @@ def login(request):
 
 
 @csrf_exempt
-def serveBusDetails(request):
+def serveBusDetails(request, id):
     
     if request.method == 'POST':
         busData = JSONParser().parse(request)
@@ -96,7 +92,7 @@ def serveBusDetails(request):
             return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'GET':
-        User = BusDetails.objects.all()
+        User = BusDetails.objects.filter(user_id=id)
         busSerializer = BusDetailsSerializer(User,many='True')
         return JsonResponse(busSerializer.data,safe=False)
 
@@ -106,7 +102,7 @@ def serveSchedule(request):
 
     if request.method == 'POST':
         busData = JSONParser().parse(request)
-        scheduleSerializer = ScheduleSerializer(data = busData)
+        scheduleSerializer = ScheduleSerializer(data = busData) 
 
         if scheduleSerializer.is_valid():
 
