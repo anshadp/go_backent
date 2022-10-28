@@ -87,8 +87,10 @@ def serveBusDetails(request, id):
 
         if busSerializer.is_valid():
             busSerializer.save()
+            
             return JsonResponse({"status": "success", "data": busSerializer.data}, status=status.HTTP_200_OK)
         else:
+            print(busSerializer.errors)
             return JsonResponse({"status": "error", "data": busSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
     elif request.method == 'GET':
