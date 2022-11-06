@@ -78,7 +78,7 @@ def login(request):
 
 
 @csrf_exempt
-def serveBusDetails(request, id):
+def serveBusDetails(request, id=0):  #continue on this
     
     if request.method == 'POST':
         busData = JSONParser().parse(request)
