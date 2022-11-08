@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import SignUp, Account, BusDetails, Schedule
 
+
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignUp
@@ -17,12 +18,20 @@ class AccountSerializer(serializers.ModelSerializer):
 class BusDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusDetails
-        fields = ('id', 'bus_name', 'bus_no', 'contact', 'user')
+        fields = ('id', 'bus_name', 'bus_no', 'bus_type',
+                  'running_way',
+                  'taking_place',
+                  'stopping_place',
+                  'taking_time',
+                  'stopping_time',
+                  'bus_owner'
+                  )
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
-        
+
         model = Schedule
-        fields = ('id', 'taking_place', 'reaching_place', 'taking_time', 'reaching_time', 'time_taken', 'bus')
+        fields = ('id', 'taking_place', 'reaching_place',
+                  'taking_time', 'reaching_time', 'time_taken', 'bus')
