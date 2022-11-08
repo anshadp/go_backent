@@ -24,27 +24,31 @@ class Account(models.Model):
 
 
 class BusDetails(models.Model):
+    bus_owner = models.ForeignKey(SignUp, on_delete=models.CASCADE)
     bus_name = models.CharField(max_length=100)
-    bus_no = models.CharField(max_length=100)
-    contact = models.BigIntegerField()
-    user = models.ForeignKey(SignUp, on_delete=models.CASCADE)
-
+    bus_no = models.CharField(max_length=20)
+    bus_type = models.CharField(max_length=30)
+    running_way = models.CharField(max_length=50)
+    taking_place = models.CharField(max_length=50)
+    stopping_place = models.CharField(max_length=50)
+    taking_time = models.TimeField()
+    stopping_time = models.TimeField()
 
     class Meta(): 
         db_table = 'bus_details'
 
 
 class Schedule(models.Model):
-    taking_place = models.CharField(max_length=100)
-    reaching_place = models.CharField(max_length=100)
+    taken_from = models.CharField(max_length=100)
+    to = models.CharField(max_length=100)
     taking_time = models.TimeField()
     reaching_time = models.TimeField()
     time_taken = models.CharField(max_length=100)
     bus = models.ForeignKey(BusDetails, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = (('taking_time', 'bus_id'))
-        db_table = 'bus_schedule'
+    # class Meta:
+    #     unique_together = (('taking_time', 'bus_id'))
+    #     db_table = 'bus_schedule'
 
     
  
